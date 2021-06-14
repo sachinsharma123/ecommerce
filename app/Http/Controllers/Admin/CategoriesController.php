@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Category;
+use Illuminate\Support\Facades\Auth;
 
 class CategoriesController extends Controller
 {
@@ -15,8 +16,9 @@ class CategoriesController extends Controller
      */
     public function index()
     {
-        $categories =Category::all();
-        return view('admin.categories.index',compact('categories'));
+        $this->authorize('categories',Auth::user());
+        $categories = Category::all();
+        return view('admin.categories.index' , compact('categories'));
     }
 
     /**

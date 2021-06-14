@@ -22,8 +22,17 @@ class ProductsController extends Controller
     public function index()
     {
     
-        $products =Product::latest()->get();
-        return view('admin.products.index',['products'=>$products]);
+        if(Auth::user()->role == "admin"){
+            $products = Product::latest()->get();
+            return view('Admin.Products.index',['products'=>$products]);
+        }
+        else{
+            $id = Auth::id();
+            $product = Product::whereUserId($id)->get(); 
+            // return $product;
+            // $products=products::latest()->where($product->user_id == Auth::User()->id);
+            return view('Admin.Products.index',['products'=>$product]);
+        }
     }
 
     /**

@@ -88,11 +88,19 @@
                         @if (Route::has('login'))
                          @auth
                             <li><i class="ti-user"></i> <a href="{{ url('/dashboard') }}">My account</a></li>
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                    
+                                <a href="{{route ('logout') }}" class="dropdown-item"  onclick="event.preventDefault();
+                                this.closest('form').submit();">
+                                <i class="typcn typcn-power-outline"></i> Sign Out</a></li>
+                                    
+                            </form>
                         @else
                             <li><i class="ti-power-off"></i><a href="{{ route('login') }}">Login</a></li>
                                
                                 @if (Route::has('register'))
-                                <li><i class="ti-user"></i> <a href="{{ route('register') }}">My account</a></li>
+                                <li><i class="ti-user"></i> <a href="{{ route('register') }}">Register</a></li>
                                 @endif
                             @endauth
                         
